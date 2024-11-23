@@ -14,7 +14,7 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       centerTitle: true,
       title: Text(
-        'Cats',
+        'CatsBreeds',
         style: TextStyles.bold(
           color: Colors.white,
           size: 22

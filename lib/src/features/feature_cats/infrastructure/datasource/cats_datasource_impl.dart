@@ -41,9 +41,29 @@ class CatsDatasourceImpl implements CatsDatasource {
   }
 
   @override
-  Future<List<Cat>> getSearchCats(String queryName) {
-    // TODO: implement getSearchCats
-    throw UnimplementedError();
+  Future<List<Cat>> getSearchCats({required String queryName}) async {
+    try {
+      final uri = Uri.parse(ApiRoutes.searchCats).replace(queryParameters: {
+        'q': queryName,
+      });
+
+      final response = await http.get(uri, headers: ApiHeaders.headers)
+          .timeout(ApiHeaders().timeOut).catchError((value) {
+        throw "errorServeTimeOut";
+      });
+      List data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        List<Cat> cats = [];
+        for (var item in data ) {
+          cats.add(CatMapper.jsonToEntity(item));
+        }
+        return cats;
+      } else {
+        throw "Error response cats";
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
 }

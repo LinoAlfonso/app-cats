@@ -44,10 +44,23 @@ class _SplashViewState extends State<SplashView> {
                     child: ZoomIn(
                       duration: const Duration(seconds: 1),
                       child: Center(
-                        child: SvgPicture.asset(
-                          'assets/svg/cat.svg',
-                          height: 300,
-                          colorFilter: const ColorFilter.mode(AppColors.orangePrimary, BlendMode.srcIn)
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Cats Breeds",
+                              style: TextStyles.bold(
+                                  color: AppColors.orangePrimary,
+                                  size: 30
+                              ),
+                            ),
+                            const SizedBox(height: 30),
+                            SvgPicture.asset(
+                              'assets/svg/cat.svg',
+                              height: 250,
+                              colorFilter: const ColorFilter.mode(AppColors.orangePrimary, BlendMode.srcIn)
+                            ),
+                          ],
                         ),
                       ),
                     ),

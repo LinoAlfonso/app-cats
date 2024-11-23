@@ -19,7 +19,7 @@ class CatsRepositoryImpl implements CatsRepository {
   }
 
   @override
-  Future<List<Cat>> getSearchCats(String queryName) {
-    return remoteDatasource.getSearchCats(queryName);
+  Future<List<Cat>> getSearchCats({ required String queryName}) {
+    return remoteDatasource.getSearchCats(queryName: queryName);
   }
 }

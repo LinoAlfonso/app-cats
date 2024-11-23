@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../config/config.dart';
@@ -20,14 +21,11 @@ class HomeCatsView extends StatefulWidget {
 class _HomeCatsViewState extends State<HomeCatsView> {
 
   final controllerSearch = TextEditingController();
+  final FocusNode focusNode = FocusNode();
   Timer? _debounce;
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final catsProvider = context.read<CatsProvider>();
-      catsProvider.getBreedsCats();
-    });
     super.initState();
   }
 
@@ -38,7 +36,7 @@ class _HomeCatsViewState extends State<HomeCatsView> {
         onTapLogo: (){},
       ),
       body: Consumer<CatsProvider>(
-        builder: (context,cats,child) {
+        builder: (context,catsProvider,child) {
           return SafeArea(
             child: Column(
               children: [
@@ -47,27 +45,38 @@ class _HomeCatsViewState extends State<HomeCatsView> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 30,right: 30,bottom: 10),
                     child: SearchTextField(
+                      focusNode: focusNode,
                       controller: controllerSearch,
                       hintText: 'Breed cat...',
                       onChanged: (value) {
                         searchCat(value);
                       },
+                      onClear: onClear,
                     ),
                   ),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                    itemCount: cats.cats.length,
-                    itemBuilder: (context, index) {
-                      final cat = cats.cats[index];
-                      return CatCard(
-                        cat: cat,
-                        onTapCat: onTapCat,
-                      );
-                    },
+            Expanded(
+              child: PagedListView<int, Cat>(
+                pagingController: catsProvider.pagingController,
+                builderDelegate: PagedChildBuilderDelegate<Cat>(
+                  itemBuilder: (context, cat, index) {
+                    return CatCard(
+                      cat: cat,
+                      onTapCat: onTapCat,
+                    );
+                  },
+                  firstPageProgressIndicatorBuilder: (_) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  newPageProgressIndicatorBuilder: (_) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  noItemsFoundIndicatorBuilder: (_) =>  Center(
+                    child: Text('Search results...',style: TextStyles.bold(size: 20),),
                   ),
                 ),
+              ),
+            )
               ],
             ),
           );
@@ -77,6 +86,7 @@ class _HomeCatsViewState extends State<HomeCatsView> {
   }
 
   void onTapCat(Cat cat) {
+    focusNode.unfocus();
     context.pushNamed(DetailCatView.routeName, extra: cat);
   }
 
@@ -86,6 +96,13 @@ class _HomeCatsViewState extends State<HomeCatsView> {
       final catsProvider = context.read<CatsProvider>();
       catsProvider.searchBreedCat(value);
     });
+  }
+
+  void onClear() {
+    focusNode.unfocus();
+    controllerSearch.clear();
+    final catsProvider = context.read<CatsProvider>();
+    catsProvider.searchBreedCat('');
   }
 
 }
