@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +18,9 @@ class HomeCatsView extends StatefulWidget {
 }
 
 class _HomeCatsViewState extends State<HomeCatsView> {
+
+  final controllerSearch = TextEditingController();
+  Timer? _debounce;
 
   @override
   void initState() {
@@ -37,6 +42,19 @@ class _HomeCatsViewState extends State<HomeCatsView> {
           return SafeArea(
             child: Column(
               children: [
+                Container(
+                  color: AppColors.orangePrimary,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 30,right: 30,bottom: 10),
+                    child: SearchTextField(
+                      controller: controllerSearch,
+                      hintText: 'Breed cat...',
+                      onChanged: (value) {
+                        searchCat(value);
+                      },
+                    ),
+                  ),
+                ),
                 Expanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
@@ -60,6 +78,14 @@ class _HomeCatsViewState extends State<HomeCatsView> {
 
   void onTapCat(Cat cat) {
     context.pushNamed(DetailCatView.routeName, extra: cat);
+  }
+
+  void searchCat(String value) {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      final catsProvider = context.read<CatsProvider>();
+      catsProvider.searchBreedCat(value);
+    });
   }
 
 }
