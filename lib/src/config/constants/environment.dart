@@ -6,5 +6,6 @@ class Environment {
   }
 
   static String apiUrl                = dotenv.env['API_URL'] ?? 'not found';
+  static String apiKey                = dotenv.env['API_KEY_CATS'] ?? 'not found';
 
 }

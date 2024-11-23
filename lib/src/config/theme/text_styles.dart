@@ -4,20 +4,6 @@ import 'app_colors.dart';
 
 class TextStyles {
 
-  static TextStyle regularTitle({
-    double size = 20.0,
-    Color color = Colors.black,
-    TextDecoration decoration = TextDecoration.none
-  }) {
-    return TextStyle(
-      fontSize: size,
-      color: color,
-      decoration: decoration,
-      letterSpacing: 0.3,
-      fontFamily: 'PublicoHeadline',
-      fontWeight: FontWeight.w800,
-    );
-  }
 
   static TextStyle regular({
     double size = 14.0,
@@ -28,7 +14,7 @@ class TextStyles {
       fontSize: size,
       color: color,
       decoration: decoration,
-      fontFamily: 'IBMPlexSans',
+      fontFamily: 'Montserrat',
       fontWeight: FontWeight.w400,
     );
   }
@@ -42,7 +28,7 @@ class TextStyles {
       fontSize: size,
       color: color,
       decoration: decoration,
-      fontFamily: 'IBMPlexSans',
+      fontFamily: 'Montserrat',
       fontWeight: FontWeight.w500,
     );
   }
@@ -56,7 +42,7 @@ class TextStyles {
       fontSize: size,
       color: color,
       decoration: decoration,
-      fontFamily: 'IBMPlexSans',
+      fontFamily: 'Montserrat',
       fontWeight: FontWeight.w600,
     );
   }
@@ -70,7 +56,7 @@ class TextStyles {
       fontSize: size,
       color: color,
       decoration: decoration,
-      fontFamily: 'IBMPlexSans',
+      fontFamily: 'Montserrat',
       fontWeight: FontWeight.w700,
     );
   }
