@@ -49,4 +49,7 @@ class Cat {
     this.strangerFriendly,
     this.imageCat,
   });
+
+  get lifeSpanInYears => "${lifeSpan ?? ''} years";
+
 }

@@ -1,13 +1,15 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../../config/config.dart';
 import '../../domain/domain.dart';
 import '../presentation.dart';
 
 
 class CatCard extends StatelessWidget {
   final Cat cat;
-  const CatCard({super.key, required this.cat});
+  final Function(Cat) onTapCat;
+  const CatCard({super.key, required this.cat, required this.onTapCat});
 
   @override
   Widget build(BuildContext context) {
@@ -26,78 +28,70 @@ class CatCard extends StatelessWidget {
                 size: const Size(double.infinity, 180),
               ),
             ),
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-
-                      Text(
-                        cat.name??'',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 4,
-                              color: Colors.black.withOpacity(0.8),
-                              offset: Offset(1, 1),
-                            ),
-                          ],
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.5),
+                        borderRadius: const BorderRadius.only(
+                          bottomRight: Radius.circular(16),
                         ),
                       ),
-                      // Botón "Más"
-                      ElevatedButton(
-                        onPressed: () {
-                          // Acción para el botón
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white.withOpacity(0.8),
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(8),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          cat.name??'',
+                          style: TextStyles.bold(color: Colors.white,size: 16),
                         ),
-                        child: Icon(
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () => onTapCat(cat),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(8),
+                        ),
+                        child: const Icon(
                           Icons.more_horiz,
                           color: Colors.black,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-               SizedBox(height: 180,),// Espacio flexible
-
+               const SizedBox(height: 180,),
                 Container(
-                  color: Colors.black.withOpacity(0.5), // Fondo oscuro semi-transparente
+                  color: Colors.black.withOpacity(0.5),
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // País de origen
                       Row(
                         children: [
-                          Icon(Icons.location_on, color: Colors.white, size: 18),
-                          SizedBox(width: 4),
+                          const Icon(Icons.location_on, color: Colors.white, size: 18),
+                          const SizedBox(width: 4),
                           Text(
                             cat.origin??'',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyles.medium(color: Colors.white),
                           ),
                         ],
                       ),
-                      // Nivel de inteligencia
                       Row(
                         children: [
                           Text(
-                            "Intelligence: ${cat.intelligence}",
-                            style: TextStyle(color: Colors.white),
+                            "Inteligencia: ${cat.intelligence}",
+                            style: TextStyles.medium(color: Colors.white),
                           ),
-                          SizedBox(width: 4),
-                          Icon(Icons.star, color: Colors.yellow, size: 18),
+                          const SizedBox(width: 4),
+                          const Icon(Icons.star, color: Colors.white, size: 18),
                         ],
                       ),
                     ],

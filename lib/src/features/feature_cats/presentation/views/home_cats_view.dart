@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../config/config.dart';
+import '../../domain/domain.dart';
 import '../presentation.dart';
 
 class HomeCatsView extends StatefulWidget {
 
   const HomeCatsView({super.key});
-  static const nameView = 'HomeCats';
+  static const routeName = 'HomeCats';
 
   @override
   State<HomeCatsView> createState() => _HomeCatsViewState();
@@ -43,6 +45,7 @@ class _HomeCatsViewState extends State<HomeCatsView> {
                       final cat = cats.cats[index];
                       return CatCard(
                         cat: cat,
+                        onTapCat: onTapCat,
                       );
                     },
                   ),
@@ -54,4 +57,9 @@ class _HomeCatsViewState extends State<HomeCatsView> {
       ),
      );
   }
+
+  void onTapCat(Cat cat) {
+    context.pushNamed(DetailCatView.routeName, extra: cat);
+  }
+
 }

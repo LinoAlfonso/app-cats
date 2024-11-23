@@ -24,7 +24,7 @@ class _SplashViewState extends State<SplashView> {
       final onBoardingProvider = context.read<OnBoardingProvider>();
       onBoardingProvider.getVersion();
       Future.delayed(const Duration(seconds: 2), () {
-        context.goNamed(HomeCatsView.nameView);
+        context.goNamed(HomeCatsView.routeName);
       });
     });
     super.initState();

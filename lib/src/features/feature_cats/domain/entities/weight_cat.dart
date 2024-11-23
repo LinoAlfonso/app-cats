@@ -6,4 +6,9 @@ class WeightCat{
     this.imperial,
     this.metric,
   });
+
+  get weightInLbs => "${imperial ?? ''} lbs";
+
+  get weightInKg => "${metric ?? ''} kg";
+
 }
