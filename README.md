@@ -3,19 +3,18 @@
 Aplicación móvil desarrollada bajo el framework Flutter en su versión 3.24.4, la cual permite visualizar una lista de razas de gatos.
 Al seleccionar una raza, se permite la navegación a una segunda vista, donde se presenta la información completa de la raza
 
-## Integracion API TheCatAPI
+## Integración con TheCatAPI
 
-Este proyecto utiliza la API de TheCatAPI para obtener la información de las razas de gatos. Para conocer mas sobre su uso vista 
+Este proyecto utiliza la API de TheCatAPI para obtener información sobre las razas de gatos. Para más detalles sobre su uso, visita su sitio web oficial.
 - [TheCatAPI](https://thecatapi.com/)
 
-## Estrucutra del proyecto
+## Estructura del proyecto
 
 El proyecto se encuentra estructurado de la siguiente manera:
 
-### Aquitectura
+### Arquitectura
 
-Este proyecto utliza como referencia la arquitectura Clean Architecture, garantizando la separación de
-responsabilidades y la escalabilidad del proyecto, la cual se divide en tres capas principales:
+Este proyecto sigue el patrón de Clean Architecture, lo que asegura la separación de responsabilidades y la escalabilidad. El cual se divide en tres capas principales:
 
 - **Domain**: Contiene las entidades y los casos de uso de la aplicación
 - **Infrastructure**: Contiene la implementación de los casos de uso y la capa de datos
@@ -23,7 +22,7 @@ responsabilidades y la escalabilidad del proyecto, la cual se divide en tres cap
 
 ### Implementaciones
 
-Estas son algunas de las libreias utilizadas en el proyecto:
+Estas son algunas de las librerías utilizadas en el proyecto:
 
 - [http](https://pub.dev/packages/http) - Para realizar peticiones HTTP
 - [provider](https://pub.dev/packages/provider) - Para manejar el estado de la aplicación
@@ -42,7 +41,7 @@ en la raíz del proyecto con la siguiente estructura:
 
 ## Capturas de pantalla
 
-A continuación se presentan algunas capturas de pantalla de la aplicación:
+A continuación, se presentan algunas capturas de pantalla de la aplicación.
 
 <p align="center">
   <img width="270" height="555" src="screens/1.jpg">
