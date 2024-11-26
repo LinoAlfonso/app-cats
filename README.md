@@ -25,6 +25,8 @@ Este proyecto sigue el patrón de Clean Architecture, lo que asegura la separaci
 Estas son algunas de las librerías utilizadas en el proyecto:
 
 - [http](https://pub.dev/packages/http) - Para realizar peticiones HTTP
+- [mockito](https://pub.dev/packages/mockito) - Para realizar pruebas unitarias a la infraestructura
+- [build_runner](https://pub.dev/packages/build_runner) - Para generar código para los mocks
 - [provider](https://pub.dev/packages/provider) - Para manejar el estado de la aplicación
 - [flutter_dotenv](https://pub.dev/packages/flutter_dotenv) - Para cargar variables de entorno
 - [go_router](https://pub.dev/packages/go_router) - Para manejar la navegación de la aplicación
