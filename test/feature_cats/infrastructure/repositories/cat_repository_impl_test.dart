@@ -19,8 +19,7 @@ void main() {
     repository = CatsRepositoryImpl(remoteDatasource: dataSource);
   });
   
-  test("Debe devolver un listado de raza de gatos, cuando la fuente de datos recupere los datos",
-      ()async {
+  test("Debe devolver un listado de raza de gatos, cuando la fuente de datos recupere los datos", ()async {
     // Arrange
       final List<Cat> mockCats = [
         Cat(
@@ -34,6 +33,7 @@ void main() {
           description: "The Aegean"
         ),
       ];
+
       when(dataSource.getBreedsCats(page: 1)).thenAnswer((_) async => mockCats);
 
       // Act
@@ -49,7 +49,6 @@ void main() {
        // Arrange
        when(dataSource.getBreedsCats(page: 1)).thenThrow(Exception("Error al obtener los datos"));
        expect(() async => await repository.getBreedsCats(page: 1), throwsException);
-
      });
 
   

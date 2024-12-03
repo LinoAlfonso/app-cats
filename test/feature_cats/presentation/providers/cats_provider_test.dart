@@ -17,8 +17,7 @@ void main(){
     provider = CatsProvider(catsRepository: mockRepository);
   });
 
-  test("Debe actulizar la lista de razas de gatos",
-      ()async {
+  test("Debe actulizar la lista de razas de gatos", ()async {
     // Arrange
     final mockCats = [
       Cat(

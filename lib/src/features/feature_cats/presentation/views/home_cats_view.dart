@@ -30,9 +30,18 @@ class _HomeCatsViewState extends State<HomeCatsView> {
   }
 
   @override
+  void dispose() {
+    controllerSearch.dispose();
+    focusNode.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
      return Scaffold(
       appBar: HeaderHome(
+        title: 'CatBreeds',
         onTapLogo: (){},
       ),
       body: Consumer<CatsProvider>(
@@ -40,6 +49,7 @@ class _HomeCatsViewState extends State<HomeCatsView> {
           return SafeArea(
             child: Column(
               children: [
+                // Search TextField
                 Container(
                   color: AppColors.orangePrimary,
                   child: Padding(
@@ -48,35 +58,16 @@ class _HomeCatsViewState extends State<HomeCatsView> {
                       focusNode: focusNode,
                       controller: controllerSearch,
                       hintText: 'Breed cat...',
-                      onChanged: (value) {
-                        searchCat(value);
-                      },
+                      onChanged: searchCat,
                       onClear: onClear,
                     ),
                   ),
                 ),
-            Expanded(
-              child: PagedListView<int, Cat>(
-                pagingController: catsProvider.pagingController,
-                builderDelegate: PagedChildBuilderDelegate<Cat>(
-                  itemBuilder: (context, cat, index) {
-                    return CatCard(
-                      cat: cat,
-                      onTapCat: onTapCat,
-                    );
-                  },
-                  firstPageProgressIndicatorBuilder: (_) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  newPageProgressIndicatorBuilder: (_) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  noItemsFoundIndicatorBuilder: (_) =>  Center(
-                    child: Text('Search results...',style: TextStyles.bold(size: 20),),
-                  ),
-                ),
-              ),
-            )
+
+                // List Cats
+                Expanded(
+                  child: ListViewCatsPagination(onTapCat: onTapCat, catsProvider: catsProvider),
+                )
               ],
             ),
           );
@@ -91,17 +82,17 @@ class _HomeCatsViewState extends State<HomeCatsView> {
   }
 
   void searchCat(String value) {
+    final catsProvider = context.read<CatsProvider>();
     if (_debounce?.isActive ?? false) _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
-      final catsProvider = context.read<CatsProvider>();
       catsProvider.searchBreedCat(value);
     });
   }
 
   void onClear() {
+    final catsProvider = context.read<CatsProvider>();
     focusNode.unfocus();
     controllerSearch.clear();
-    final catsProvider = context.read<CatsProvider>();
     catsProvider.searchBreedCat('');
   }
 

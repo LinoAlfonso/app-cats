@@ -8,8 +8,7 @@ import 'package:mockito/mockito.dart';
 void main() {
   group('CatCard Widget', ()
   {
-    testWidgets(
-        'Debe mostrar el nombre del gato y llamar al callback al presionar el botón', (
+    testWidgets('Debe mostrar el nombre del gato y llamar al callback al presionar el botón', (
         WidgetTester tester) async {
       // Arrange
       final cat = Cat(

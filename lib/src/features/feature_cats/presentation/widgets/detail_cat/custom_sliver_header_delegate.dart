@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:go_router/go_router.dart';
 import '../../../../../config/config.dart';
+import '../../../../feature_core/feature_core.dart';
 import '../../../domain/domain.dart';
 import '../../../feature_cats.dart';
 
@@ -16,7 +17,7 @@ class CustomSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
   });
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context,_, __) {
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -47,24 +48,15 @@ class CustomSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
         Align(
           alignment: Alignment.topLeft,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 28,horizontal: 16),
-            child: DecoratedBox(
-              decoration: const BoxDecoration(
-                color: AppColors.orangePrimary,
-                shape: BoxShape.circle,
-              ),
-              child: IconButton(
-                visualDensity: VisualDensity.compact,
+            padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 8),
+            child: ButtonCircleIcon(
                 icon: const Icon(
                   Icons.arrow_back,
                   size: 20,
                   color: Colors.white,
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
+                backgroundColor: AppColors.orangePrimary,
+                onPressed: ()=>context.pop()),
           ),
         ),
       ],

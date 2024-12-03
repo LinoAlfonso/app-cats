@@ -1,8 +1,8 @@
-import 'package:app_cats/src/features/feature_cats/feature_cats.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/config.dart';
 import '../../domain/domain.dart';
+import '../../feature_cats.dart';
 
 class DetailCatView extends StatelessWidget {
   final Cat cat;
@@ -22,12 +22,11 @@ class DetailCatView extends StatelessWidget {
          delegate: CustomSliverHeaderDelegate(
             cat: cat,
             expandedHeight: MediaQuery.of(context).size.height * 0.6,
-            minHeight: MediaQuery.of(context).size.height * 0.3,
+            minHeight: MediaQuery.of(context).size.height * 0.4,
           ),
         ),
         SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => customSliverApp(), childCount: 1)),
+            delegate: SliverChildBuilderDelegate((context, index) => customSliverApp(), childCount: 1)),
       ]),
     );
   }
@@ -38,27 +37,28 @@ class DetailCatView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          //Description
           Text('Description', style: TextStyles.bold(size: 18)),
           const SizedBox(height: 8),
           Text(cat.description ?? '', style: TextStyles.regular(size: 16)),
           const SizedBox(height: 24),
 
+          //Temperament
           Text('Temperament', style: TextStyles.bold(size: 18)),
           const SizedBox(height: 8),
           Text(cat.temperament ?? '', style: TextStyles.regular(size: 16)),
           const SizedBox(height: 24),
 
+          //Origin
           Text('Origin', style: TextStyles.bold(size: 18)),
           const SizedBox(height: 8),
-          Row(
-            children: [
-              const Icon(Icons.location_on, color: AppColors.gray),
-              const SizedBox(width: 8),
-              Text(cat.origin ?? '', style: TextStyles.regular(size: 16)),
-            ],
-          ),
+          CountryCat(
+              country: cat.origin,
+              colorIcon: AppColors.gray,
+              textStyle: TextStyles.regular(size: 16)),
           const SizedBox(height: 24),
 
+          //Characteristics
           Text('Characteristics', style: TextStyles.bold(size: 18)),
           const SizedBox(height: 8),
           SectionAttributesCat(cat: cat)

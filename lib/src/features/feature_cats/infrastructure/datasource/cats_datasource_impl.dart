@@ -6,7 +6,6 @@ import '../../domain/domain.dart';
 import '../mappers/cat_mapper.dart';
 
 class CatsDatasourceImpl implements CatsDatasource {
-
   @override
   Future<List<Cat>> getBreedsCats({required int page}) async {
     try {
@@ -15,14 +14,16 @@ class CatsDatasourceImpl implements CatsDatasource {
         'page': page.toString(),
       });
 
-      final response = await http.get(uri, headers: ApiHeaders.headers)
-          .timeout(ApiHeaders().timeOut).catchError((value) {
+      final response = await http
+          .get(uri, headers: ApiHeaders.headers)
+          .timeout(ApiHeaders().timeOut)
+          .catchError((value) {
         throw "errorServeTimeOut";
       });
       List data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         List<Cat> cats = [];
-        for (var item in data ) {
+        for (var item in data) {
           cats.add(CatMapper.jsonToEntity(item));
         }
         return cats;
@@ -47,14 +48,16 @@ class CatsDatasourceImpl implements CatsDatasource {
         'q': queryName,
       });
 
-      final response = await http.get(uri, headers: ApiHeaders.headers)
-          .timeout(ApiHeaders().timeOut).catchError((value) {
+      final response = await http
+          .get(uri, headers: ApiHeaders.headers)
+          .timeout(ApiHeaders().timeOut)
+          .catchError((value) {
         throw "errorServeTimeOut";
       });
       List data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         List<Cat> cats = [];
-        for (var item in data ) {
+        for (var item in data) {
           cats.add(CatMapper.jsonToEntity(item));
         }
         return cats;
@@ -65,5 +68,4 @@ class CatsDatasourceImpl implements CatsDatasource {
       throw Exception(e);
     }
   }
-
 }

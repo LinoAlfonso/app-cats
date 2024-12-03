@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../config/config.dart';
+import '../../../feature_core/feature_core.dart';
 import '../../domain/domain.dart';
 import '../presentation.dart';
 
@@ -50,21 +50,12 @@ class CatCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () => onTapCat(cat),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.all(8),
-                        ),
-                        child: const Icon(
-                          Icons.more_horiz,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                    ButtonCircleIcon(
+                        icon: const Icon(
+                        Icons.more_horiz,
+                        color: Colors.black),
+                        backgroundColor: Colors.white,
+                        onPressed: () => onTapCat(cat)),
                   ],
                 ),
                const SizedBox(height: 180,),
@@ -74,20 +65,14 @@ class CatCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.location_on, color: Colors.white, size: 18),
-                          const SizedBox(width: 4),
-                          Text(
-                            cat.origin??'',
-                            style: TextStyles.medium(color: Colors.white),
-                          ),
-                        ],
-                      ),
+                      CountryCat(
+                          country: cat.origin,
+                          colorIcon: Colors.white,
+                          textStyle: TextStyles.medium(color: Colors.white)),
                       Row(
                         children: [
                           Text(
-                            "Inteligencia: ${cat.intelligence}",
+                            "Intelligence: ${cat.intelligence}",
                             style: TextStyles.medium(color: Colors.white),
                           ),
                           const SizedBox(width: 4),

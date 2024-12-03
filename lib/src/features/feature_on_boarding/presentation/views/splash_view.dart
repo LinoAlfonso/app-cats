@@ -17,15 +17,11 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final onBoardingProvider = context.read<OnBoardingProvider>();
-      onBoardingProvider.getVersion();
-      Future.delayed(const Duration(seconds: 2), () {
-        context.goNamed(HomeCatsView.routeName);
-      });
+      onBoardingProvider.initialize(context);
     });
     super.initState();
   }
@@ -35,50 +31,43 @@ class _SplashViewState extends State<SplashView> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Consumer<OnBoardingProvider>(
-            builder: (_,auth,child) {
-              return Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: ZoomIn(
-                      duration: const Duration(seconds: 1),
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "Cats Breeds",
-                              style: TextStyles.bold(
-                                  color: AppColors.orangePrimary,
-                                  size: 30
-                              ),
-                            ),
-                            const SizedBox(height: 30),
-                            SvgPicture.asset(
-                              'assets/svg/cat.svg',
-                              height: 250,
-                              colorFilter: const ColorFilter.mode(AppColors.orangePrimary, BlendMode.srcIn)
-                            ),
-                          ],
+        child: Consumer<OnBoardingProvider>(builder: (_, auth, child) {
+          return Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: ZoomIn(
+                  duration: const Duration(seconds: 1),
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "CatBreeds",
+                          style: TextStyles.bold(
+                              color: AppColors.orangePrimary, size: 30),
                         ),
-                      ),
+                        const SizedBox(height: 30),
+                        SvgPicture.asset('assets/svg/cat.svg',
+                            height: 250,
+                            colorFilter: const ColorFilter.mode(
+                                AppColors.orangePrimary, BlendMode.srcIn)),
+                      ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text(
-                          "Version:${auth.versionApp}",
-                          style:TextStyles.regular()
-                      ),
-                    ),
-                  )
-                ],
-              );
-            }
-        ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Text("Version:${auth.versionApp}",
+                      style: TextStyles.regular()),
+                ),
+              )
+            ],
+          );
+        }),
       ),
     );
   }
